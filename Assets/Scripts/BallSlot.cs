@@ -29,7 +29,7 @@ public class BallSlot : MonoBehaviour
     {
         if (pathCreator)
         {
-            distanceTraveled += Time.deltaTime;
+            distanceTraveled += GameProperties.ballSlotsSpeed * Time.deltaTime;
 
             if (distanceTraveled > pathCreator.path.length)
             {

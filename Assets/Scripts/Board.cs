@@ -25,7 +25,7 @@ public class Board : MonoBehaviour
             Ball ball = Instantiate(ballPrefab, zeroSlot.transform);
             zeroSlot.ball = ball;
             ball.transform.localScale = Vector3.zero;
-            ball.isSpawning = true;
+            ball.state = BallState.Spawning;
         }
     }
 
