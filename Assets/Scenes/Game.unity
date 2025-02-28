@@ -480,6 +480,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballSlotPrefab: {fileID: 4466832251221126081, guid: e13332fa342f2ab41b39ba67101aae7e, type: 3}
   pathCreator: {fileID: 970229315}
+  ballSlotContainer: {fileID: 1908087003}
+  ballPrefab: {fileID: -9058541482251748375, guid: 0b3b874aa973a76479c76db6c348c9e2, type: 3}
 --- !u!4 &1553866789
 Transform:
   m_ObjectHideFlags: 0
@@ -682,6 +684,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1908087002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1908087003}
+  m_Layer: 0
+  m_Name: Ball Slots Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1908087003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908087002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -692,3 +725,4 @@ SceneRoots:
   - {fileID: 1834303172}
   - {fileID: 1553866789}
   - {fileID: 970229316}
+  - {fileID: 1908087003}

@@ -8,6 +8,7 @@ public class BallSlot : MonoBehaviour
 
     [Header("Data")]
     private float distanceTraveled;
+    public Ball ball;
 
     private void Start()
     {
@@ -19,11 +20,22 @@ public class BallSlot : MonoBehaviour
         this.distanceTraveled = distanceTraveled;
     }
 
+    public float GetDistanceTraveled()
+    {
+        return distanceTraveled;
+    }
+
     private void Update()
     {
         if (pathCreator)
         {
             distanceTraveled += Time.deltaTime;
+
+            if (distanceTraveled > pathCreator.path.length)
+            {
+                distanceTraveled = 0;
+            }
+
             transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
         }
     }
