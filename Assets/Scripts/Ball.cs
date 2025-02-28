@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
     {
         if (isSpawning)
         {
-            upscaleCounter += 3 * Time.deltaTime;
+            upscaleCounter += GameProperties.ballUpscaleSpeed * Time.deltaTime;
             if (upscaleCounter >= 1)
             {
                 isSpawning = false;
