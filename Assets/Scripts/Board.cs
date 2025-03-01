@@ -9,6 +9,7 @@ public class Board : MonoBehaviour
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private Transform ballSlotContainer;
     [SerializeField] private Ball ballPrefab;
+    [SerializeField] private BallFactory BallFactory; 
 
     private BallSlot[] ballSlots;
 
@@ -22,8 +23,9 @@ public class Board : MonoBehaviour
         BallSlot zeroSlot = ballSlots.OrderBy(bs => bs.GetDistanceTraveled()).ToArray()[0];
         if (!zeroSlot.ball)
         {
-            Ball ball = Instantiate(ballPrefab, zeroSlot.transform);
+            Ball ball = BallFactory.CreateBallAt(zeroSlot.transform.position);
             zeroSlot.ball = ball;
+            ball.transform.parent = zeroSlot.transform;
             ball.transform.localScale = Vector3.zero;
             ball.state = BallState.Spawning;
         }

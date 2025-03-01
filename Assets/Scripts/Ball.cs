@@ -43,4 +43,17 @@ public class Ball : MonoBehaviour
         shootDirection = direction;
         state = BallState.Shooting;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<BallSlot>())
+        {
+            BallSlot ballSlot = collision.GetComponent<BallSlot>();
+
+            if (ballSlot.ball && state == BallState.Shooting)
+            {
+                Debug.Log("Boo!");
+            }
+        }
+    }
 }

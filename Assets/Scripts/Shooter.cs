@@ -40,7 +40,11 @@ public class Shooter : MonoBehaviour
 
     private Vector3 GetMousePosition()
     {
-        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        var mousePos = Input.mousePosition;
+        if (mousePos.x < 0 || mousePos.x >= Screen.width || mousePos.y < 0 || mousePos.y >= Screen.height)
+            return new Vector3();
+
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(mousePos);
         mousePosition.z = 0;
 
         return mousePosition;
