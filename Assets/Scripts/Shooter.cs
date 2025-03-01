@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    private Camera mainCamera;
+    [Header("Elements")]
+    [SerializeField] private BallFactory ballFactory;
 
+    [Header("Data")]
+    private Camera mainCamera;
+    public Ball nextShootBall;
     private void Start()
     {
         mainCamera = Camera.main;
@@ -12,6 +16,18 @@ public class Shooter : MonoBehaviour
     private void Update()
     {
         FaceMouse();
+
+        if (!nextShootBall)
+        {
+            nextShootBall = ballFactory.CreateBallAt(transform.position);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 shootDirection = (GetMousePosition() - transform.position).normalized;
+            nextShootBall.Shoot(shootDirection);
+            nextShootBall = null;
+        }
     }
 
     private void FaceMouse()
