@@ -6,7 +6,7 @@ public class Ball : MonoBehaviour
     private float upscaleCounter;
     private float downscaleCounter = 1;
     public BallState state;
-
+    private Vector3 shootDirection;
 
     private void Update()
     {
@@ -32,5 +32,15 @@ public class Ball : MonoBehaviour
 
             transform.localScale = Vector3.one * downscaleCounter;
         }
+        else if (state == BallState.Shooting)
+        {
+            transform.position += shootDirection * (GameProperties.ballShootingSpeed * Time.deltaTime);
+        }
+    }
+
+    public void Shoot(Vector3 direction)
+    {
+        shootDirection = direction;
+        state = BallState.Shooting;
     }
 }

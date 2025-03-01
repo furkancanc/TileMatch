@@ -2,5 +2,6 @@ public enum BallState
 {
     Spawning,
     InSlot,
-    Destroying
+    Destroying,
+    Shooting
 }
