@@ -94,6 +94,11 @@ public class Ball : MonoBehaviour
         state = BallState.SwitchingSlots;
     }
 
+    public void StartDestroying()
+    {
+        state = BallState.Destroying;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<BallSlot>())

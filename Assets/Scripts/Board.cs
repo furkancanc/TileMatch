@@ -1,5 +1,8 @@
+using NUnit.Framework;
 using PathCreation;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -79,12 +82,53 @@ public class Board : MonoBehaviour
         {
             ballSlot.ball.MoveToSlot();
         }
+
+        StartCoroutine(DestroyMatchingBalls(landingBall.slot));
+    }
+
+    private IEnumerator DestroyMatchingBalls(BallSlot landedBallSlot)
+    {
+        yield return new WaitUntil(() => BallSlotsByDistance.All(bs => 
+            !bs.ball || bs.ball.state != BallState.Landing && bs.ball.state != BallState.SwitchingSlots));
+
+        List<BallSlot> ballsToDestroySlots = new List<BallSlot>();
+        int indexOfLandedBallSlot = Array.IndexOf(BallSlotsByDistance, landedBallSlot);
+
+        for (int i = indexOfLandedBallSlot - 1; i >= 0; ++i)
+        {
+            BallSlot ballSlot = BallSlotsByDistance[i];
+            if (ballSlot.ball && !ballsToDestroySlots.Contains(ballSlot) && ballSlot.ball.type == landedBallSlot.ball.type)
+            {
+                ballsToDestroySlots.Add(ballSlot);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        for (int i = indexOfLandedBallSlot + 1; i < BallSlotsByDistance.Length; ++i)
+        {
+            BallSlot ballSlot = BallSlotsByDistance[i];
+            if (ballSlot.ball && !ballsToDestroySlots.Contains(ballSlot) && ballSlot.ball.type == landedBallSlot.ball.type)
+            {
+                ballsToDestroySlots.Add(ballSlot);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        foreach (BallSlot ballsToDestroySlot in ballsToDestroySlots)
+        {
+            ballsToDestroySlot.ball.StartDestroying();
+            ballsToDestroySlot.AssignBall(null);
+        }
     }
 
     private int FirstEmptySlotIndexAfter(int indexOfCollidedSlot, BallSlot[] ballSlotsByDistance)
     {
-        int firstEmptySlotIndexAfter;
-
         for (int i = indexOfCollidedSlot; i < ballSlotsByDistance.Length; ++i)
         {
             if (!ballSlotsByDistance[i].ball)
