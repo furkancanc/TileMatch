@@ -648,7 +648,7 @@ Transform:
   m_GameObject: {fileID: 1675944993}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.81, y: 4.83, z: 0}
+  m_LocalPosition: {x: -1.57, y: 9.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -696,6 +696,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: -9058541482251748375, guid: 0b3b874aa973a76479c76db6c348c9e2, type: 3}
+  redSprite: {fileID: -5626413129806184878, guid: 341cccc23ac83ff468d80d26d4cecd88, type: 3}
+  greenSprite: {fileID: -8631529618044350831, guid: 972482b6e578c0c4ca45ebf65380721a, type: 3}
+  blueSprite: {fileID: 2408321050853762993, guid: f9eb809ae0944f0448d18939407add2a, type: 3}
 --- !u!4 &1724788583
 Transform:
   m_ObjectHideFlags: 0

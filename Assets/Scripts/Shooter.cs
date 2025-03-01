@@ -19,7 +19,7 @@ public class Shooter : MonoBehaviour
 
         if (!nextShootBall)
         {
-            nextShootBall = ballFactory.CreateBallAt(transform.position);
+            nextShootBall = ballFactory.CreateRandomBallAt(transform.position);
         }
 
         if (Input.GetMouseButtonDown(0))

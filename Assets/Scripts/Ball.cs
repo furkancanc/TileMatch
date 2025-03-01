@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour
     private float upscaleCounter;
     private float downscaleCounter = 1;
     public BallState state;
+    public BallType type;
     private Vector3 shootDirection;
 
     private void Update()
