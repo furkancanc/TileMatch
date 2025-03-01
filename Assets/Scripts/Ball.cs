@@ -14,12 +14,16 @@ public class Ball : MonoBehaviour
     private Board board;
 
     private CircleCollider2D CircleCollider2D;
+    private PathCreator pathCreator;
+
+    private float distanceTraveled;
 
     private void Start()
     {
         board = FindFirstObjectByType<Board>();
-        CircleCollider2D = GetComponent<CircleCollider2D>();
+        pathCreator = FindFirstObjectByType<PathCreator>();
 
+        CircleCollider2D = GetComponent<CircleCollider2D>();
         CircleCollider2D.enabled = false;
     }
 
@@ -64,10 +68,12 @@ public class Ball : MonoBehaviour
                 }
                 break;
             case BallState.SwitchingSlots:
-                transform.position =
-                    Vector3.MoveTowards(transform.position, slot.transform.position, GameProperties.ballLandingSpeed * Time.deltaTime);
+                int direction = distanceTraveled > slot.GetDistanceTraveled() ? -1 : 1;
+                distanceTraveled += direction * GameProperties.ballSlotSwitchingSpeed * Time.deltaTime; 
 
-                if (Vector3.Distance(transform.position, slot.transform.position) < .1f)
+                transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
+
+                if (Mathf.Abs(distanceTraveled - slot.GetDistanceTraveled()) < .1f)
                 {
                     state = BallState.InSlot;
                     transform.position = slot.transform.position;
@@ -92,6 +98,7 @@ public class Ball : MonoBehaviour
     public void MoveToSlot()
     {
         state = BallState.SwitchingSlots;
+        distanceTraveled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
     }
 
     public void StartDestroying()
