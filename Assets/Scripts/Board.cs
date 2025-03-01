@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using PathCreation;
 using System;
 using System.Collections;
@@ -23,6 +22,11 @@ public class Board : MonoBehaviour
     }
 
     private void Update()
+    {
+        ProduceBallsOnTrack();
+    }
+
+    private void ProduceBallsOnTrack()
     {
         BallSlot zeroSlot = BallSlotsByDistance[0];
         if (!zeroSlot.ball)
@@ -78,7 +82,8 @@ public class Board : MonoBehaviour
 
         landingBall.Land();
 
-        foreach (BallSlot ballSlot in ballSlotsByDistance.Where(bs => bs.ball && bs.ball.state == BallState.InSlot))
+        foreach (BallSlot ballSlot in ballSlotsByDistance
+            .Where(bs => bs.ball && bs.ball.state == BallState.InSlot))
         {
             ballSlot.ball.MoveToSlot();
         }
@@ -92,6 +97,21 @@ public class Board : MonoBehaviour
             !bs.ball || bs.ball.state != BallState.Landing && bs.ball.state != BallState.SwitchingSlots));
         Debug.Log("Ready To Destroy Matching Balls!");
 
+
+        var ballsToDestroySlots = GetSimilarBalls(landedBallSlot);
+
+        if (ballsToDestroySlots.Count >= 3)
+        {
+            foreach (BallSlot ballsToDestroySlot in ballsToDestroySlots)
+            {
+                ballsToDestroySlot.ball.StartDestroying();
+                ballsToDestroySlot.AssignBall(null);
+            }
+        }
+    }
+
+    private List<BallSlot> GetSimilarBalls(BallSlot landedBallSlot)
+    {
         List<BallSlot> ballsToDestroySlots = new List<BallSlot>();
         ballsToDestroySlots.Add(landedBallSlot);
         int indexOfLandedBallSlot = Array.IndexOf(BallSlotsByDistance, landedBallSlot);
@@ -122,14 +142,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        if (ballsToDestroySlots.Count >= 3)
-        {
-            foreach (BallSlot ballsToDestroySlot in ballsToDestroySlots)
-            {
-                ballsToDestroySlot.ball.StartDestroying();
-                ballsToDestroySlot.AssignBall(null);
-            }
-        }
+        return ballsToDestroySlots;
     }
 
     private int FirstEmptySlotIndexAfter(int indexOfCollidedSlot, BallSlot[] ballSlotsByDistance)

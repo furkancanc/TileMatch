@@ -54,7 +54,7 @@ public class Ball : MonoBehaviour
                 break;
             case BallState.Landing:
                 transform.position = 
-                    Vector3.MoveTowards(transform.position, slot.transform.position, 5 * Time.deltaTime);
+                    Vector3.MoveTowards(transform.position, slot.transform.position, GameProperties.ballLandingSpeed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, slot.transform.position) < .1f)
                 {
@@ -65,7 +65,7 @@ public class Ball : MonoBehaviour
                 break;
             case BallState.SwitchingSlots:
                 transform.position =
-                    Vector3.MoveTowards(transform.position, slot.transform.position, 5 * Time.deltaTime);
+                    Vector3.MoveTowards(transform.position, slot.transform.position, GameProperties.ballLandingSpeed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, slot.transform.position) < .1f)
                 {
@@ -101,16 +101,20 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<BallSlot>())
+        if (!collision.GetComponent<BallSlot>())
         {
-            BallSlot ballSlot = collision.GetComponent<BallSlot>();
-
-            if (ballSlot.ball && state == BallState.Shooting)
-            {
-                Debug.Log("Boo!");
-                board.LandBall(ballSlot, this);
-                CircleCollider2D.enabled = false;
-            }
+            return;
         }
+
+        BallSlot ballSlot = collision.GetComponent<BallSlot>();
+
+        if (!ballSlot.ball || state != BallState.Shooting)
+        {
+            return;
+        }
+
+        Debug.Log("Boo!");
+        board.LandBall(ballSlot, this);
+        CircleCollider2D.enabled = false;
     }
 }
