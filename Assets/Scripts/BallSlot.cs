@@ -39,4 +39,14 @@ public class BallSlot : MonoBehaviour
             transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
         }
     }
+
+    public void AssignBall(Ball newBall)
+    {
+        ball = newBall;
+
+        if (ball)
+        {
+            ball.slot = this;
+        }
+    }
 }

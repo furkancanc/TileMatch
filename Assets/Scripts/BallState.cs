@@ -3,5 +3,7 @@ public enum BallState
     Spawning,
     InSlot,
     Destroying,
-    Shooting
+    Shooting,
+    Landing,
+    SwitchingSlots
 }
