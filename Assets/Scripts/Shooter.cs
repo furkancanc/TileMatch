@@ -5,6 +5,7 @@ public class Shooter : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private BallFactory ballFactory;
     [SerializeField] private Board board;
+    [SerializeField] private Transform shootPoint;
 
     [Header("Data")]
     private Camera mainCamera;
@@ -20,15 +21,22 @@ public class Shooter : MonoBehaviour
 
         if (!nextShootBall)
         {
-            nextShootBall = ballFactory.CreateRandomBallAt(transform.position);
+            nextShootBall = ballFactory.CreateRandomBallAt(shootPoint.position);
+            nextShootBall.transform.parent = shootPoint;
         }
 
         if (Input.GetMouseButtonDown(0) && !board.isDestroyingMatchingBalls && !board.isReverse)
         {
-            Vector3 shootDirection = (GetMousePosition() - transform.position).normalized;
-            nextShootBall.Shoot(shootDirection);
-            nextShootBall = null;
+            ShootNextBall();
         }
+    }
+
+    private void ShootNextBall()
+    {
+        Vector3 shootDirection = (GetMousePosition() - transform.position).normalized;
+        nextShootBall.Shoot(shootDirection);
+        nextShootBall.transform.parent = null;
+        nextShootBall = null;
     }
 
     private void FaceMouse()
