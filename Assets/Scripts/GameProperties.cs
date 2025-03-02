@@ -8,4 +8,6 @@ public class GameProperties : MonoBehaviour
     public static float ballShootingSpeed = 20f;
     public static float ballLandingSpeed = 5f;
     public static float ballSlotSwitchingSpeed = 5f;
+
+    public static int bombRadius = 1;
 }

@@ -113,6 +113,8 @@ public class Board : MonoBehaviour
                 break;
             }
 
+            AddBalsIfThereIsBomb(ballsToDestroySlots);
+
             foreach (BallSlot ballsToDestroySlot in ballsToDestroySlots)
             {
                 ballsToDestroySlot.ball.StartDestroying();
@@ -130,6 +132,31 @@ public class Board : MonoBehaviour
         .All(bs => !bs.ball || bs.ball.state != BallState.SwitchingSlots));
 
         isDestroyingMatchingBalls = false;
+    }
+
+    private void AddBalsIfThereIsBomb(List<BallSlot> ballsToDestroySlots)
+    {
+        BallSlot ballSlot = ballsToDestroySlots.FirstOrDefault(bs => bs.ball.type == BallType.Bomb);
+        if (ballSlot)
+        {
+            int indexOfBombSlot = Array.IndexOf(BallSlotsByDistance, ballSlot);
+            for (int i = 1; i <= GameProperties.bombRadius; ++i)
+            {
+                int leftIndex = indexOfBombSlot - i;
+                int rightIndex = indexOfBombSlot + i;
+                if (leftIndex >= 0 && BallSlotsByDistance[leftIndex].ball &&
+                    !ballsToDestroySlots.Contains(BallSlotsByDistance[leftIndex]))
+                {
+                    ballsToDestroySlots.Add(BallSlotsByDistance[leftIndex]);
+                }
+
+                if (rightIndex < BallSlotsByDistance.Length && BallSlotsByDistance[rightIndex].ball &&
+                    !ballsToDestroySlots.Contains(BallSlotsByDistance[rightIndex]))
+                {
+                    ballsToDestroySlots.Add(BallSlotsByDistance[rightIndex]);
+                }
+            }
+        }
     }
 
     private void MoveSeperatedBallsBack()
