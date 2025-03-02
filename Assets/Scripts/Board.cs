@@ -35,14 +35,16 @@ public class Board : MonoBehaviour
         if (isReverse) return;
 
         BallSlot zeroSlot = BallSlotsByDistance[0];
-        if (!zeroSlot.ball)
+        if (zeroSlot.ball)
         {
-            Ball ball = ballFactory.CreateBallAt(zeroSlot.transform.position, ballFactory.GetRandomBallType());
-            zeroSlot.AssignBall(ball);
-            ball.transform.parent = zeroSlot.transform;
-            ball.transform.localScale = Vector3.zero;
-            ball.state = BallState.Spawning;
+            return;
         }
+
+        Ball ball = ballFactory.CreateBallAt(zeroSlot.transform.position, ballFactory.GetRandomBallType());
+        zeroSlot.AssignBall(ball);
+        ball.transform.parent = zeroSlot.transform;
+        ball.transform.localScale = Vector3.zero;
+        ball.state = BallState.Spawning;
     }
 
     private void InitializeBallSlots()
@@ -220,7 +222,7 @@ public class Board : MonoBehaviour
 
     private void MoveSeperatedBallsBack()
     {
-        int firstEmptyIndex = Array.FindIndex(BallSlotsByDistance, bs => !bs.ball);
+        int firstEmptyIndex = Array.FindIndex(BallSlotsByDistance, 1, bs => !bs.ball);
         int firstNonEmptyIndexAfter = Array.FindIndex(BallSlotsByDistance, firstEmptyIndex, bs => bs.ball);
         int emptySlotsCount = firstNonEmptyIndexAfter - firstEmptyIndex;
 
