@@ -16,6 +16,9 @@ public class Board : MonoBehaviour
 
     private BallSlot[] ballSlots;
 
+    [Header("Settings")]
+    public bool isDestroyingMatchingBalls { get; private set; }
+
     private void Start()
     {
         InitializeBallSlots();
@@ -93,6 +96,8 @@ public class Board : MonoBehaviour
 
     private IEnumerator DestroyMatchingBallsCo(BallSlot landedBallSlot)
     {
+        isDestroyingMatchingBalls = true;
+
         List<BallSlot> ballsToDestroySlots;
         BallSlot collidedBallSlot = landedBallSlot;
 
@@ -121,8 +126,10 @@ public class Board : MonoBehaviour
 
         } while (ballsToDestroySlots.Count >= 3 && landedBallSlot);
 
+        yield return new WaitUntil(() => BallSlotsByDistance
+        .All(bs => !bs.ball || bs.ball.state != BallState.SwitchingSlots));
 
-        
+        isDestroyingMatchingBalls = false;
     }
 
     private void MoveSeperatedBallsBack()

@@ -4,6 +4,7 @@ public class Shooter : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] private BallFactory ballFactory;
+    [SerializeField] private Board board;
 
     [Header("Data")]
     private Camera mainCamera;
@@ -22,7 +23,7 @@ public class Shooter : MonoBehaviour
             nextShootBall = ballFactory.CreateRandomBallAt(transform.position);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !board.isDestroyingMatchingBalls)
         {
             Vector3 shootDirection = (GetMousePosition() - transform.position).normalized;
             nextShootBall.Shoot(shootDirection);

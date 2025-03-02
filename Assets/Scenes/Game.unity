@@ -748,6 +748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballFactory: {fileID: 1724788582}
+  board: {fileID: 1553866788}
   nextShootBall: {fileID: 0}
 --- !u!212 &1834303171
 SpriteRenderer:
