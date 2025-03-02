@@ -12,7 +12,7 @@ public class Board : MonoBehaviour
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private Transform ballSlotContainer;
     [SerializeField] private Ball ballPrefab;
-    [SerializeField] private BallFactory BallFactory; 
+    [SerializeField] private BallFactory ballFactory; 
 
     private BallSlot[] ballSlots;
 
@@ -31,7 +31,7 @@ public class Board : MonoBehaviour
         BallSlot zeroSlot = BallSlotsByDistance[0];
         if (!zeroSlot.ball)
         {
-            Ball ball = BallFactory.CreateRandomBallAt(zeroSlot.transform.position);
+            Ball ball = ballFactory.CreateBallAt(zeroSlot.transform.position, ballFactory.GetRandomBallType());
             zeroSlot.AssignBall(ball);
             ball.transform.parent = zeroSlot.transform;
             ball.transform.localScale = Vector3.zero;
@@ -164,7 +164,9 @@ public class Board : MonoBehaviour
         for (int i = indexOfLandedBallSlot - 1; i >= 0; i--)
         {
             BallSlot ballSlot = BallSlotsByDistance[i];
-            if (ballSlot.ball && !ballsToDestroySlots.Contains(ballSlot) && ballSlot.ball.type == landedBallSlot.ball.type)
+            if (ballSlot.ball && !ballsToDestroySlots.Contains(ballSlot)
+                && BallUtil.GetColorByType(ballSlot.ball.type) == 
+                BallUtil.GetColorByType(landedBallSlot.ball.type))
             {
                 ballsToDestroySlots.Add(ballSlot);
             }
@@ -177,7 +179,9 @@ public class Board : MonoBehaviour
         for (int i = indexOfLandedBallSlot + 1; i < BallSlotsByDistance.Length; i++)
         {
             BallSlot ballSlot = BallSlotsByDistance[i];
-            if (ballSlot.ball && !ballsToDestroySlots.Contains(ballSlot) && ballSlot.ball.type == landedBallSlot.ball.type)
+            if (ballSlot.ball && !ballsToDestroySlots.Contains(ballSlot) 
+                && BallUtil.GetColorByType(ballSlot.ball.type) == 
+                BallUtil.GetColorByType(landedBallSlot.ball.type))
             {
                 ballsToDestroySlots.Add(ballSlot);
             }

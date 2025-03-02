@@ -482,7 +482,7 @@ MonoBehaviour:
   pathCreator: {fileID: 970229315}
   ballSlotContainer: {fileID: 1908087003}
   ballPrefab: {fileID: -9058541482251748375, guid: 0b3b874aa973a76479c76db6c348c9e2, type: 3}
-  BallFactory: {fileID: 1724788582}
+  ballFactory: {fileID: 1724788582}
 --- !u!4 &1553866789
 Transform:
   m_ObjectHideFlags: 0
@@ -696,9 +696,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: -9058541482251748375, guid: 0b3b874aa973a76479c76db6c348c9e2, type: 3}
-  redSprite: {fileID: -5626413129806184878, guid: 341cccc23ac83ff468d80d26d4cecd88, type: 3}
-  greenSprite: {fileID: -8631529618044350831, guid: 972482b6e578c0c4ca45ebf65380721a, type: 3}
-  blueSprite: {fileID: 2408321050853762993, guid: f9eb809ae0944f0448d18939407add2a, type: 3}
+  redSprite: {fileID: 21300000, guid: 341cccc23ac83ff468d80d26d4cecd88, type: 3}
+  greenSprite: {fileID: 21300000, guid: 972482b6e578c0c4ca45ebf65380721a, type: 3}
+  blueSprite: {fileID: 21300000, guid: f9eb809ae0944f0448d18939407add2a, type: 3}
+  bombSprite: {fileID: 21300000, guid: 8e43668eb2b9cac44a3fb5905cbca8d1, type: 3}
+  reverseSprite: {fileID: 21300000, guid: f941fc3808367574e884e9689dbcabb5, type: 3}
+  timeSlowSprite: {fileID: 21300000, guid: c6f7a95c4c10fe94dbe26374198c98fc, type: 3}
 --- !u!4 &1724788583
 Transform:
   m_ObjectHideFlags: 0
