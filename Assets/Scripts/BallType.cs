@@ -2,5 +2,8 @@ public enum BallType
 {
     Red,
     Green,
-    Blue
+    Blue,
+    Bomb,
+    Reverse,
+    TimeSlow
 }
