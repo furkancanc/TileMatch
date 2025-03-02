@@ -18,6 +18,7 @@ public class Board : MonoBehaviour
 
     [Header("Settings")]
     public bool isDestroyingMatchingBalls { get; private set; }
+    public bool isReverse { get; private set; }
 
     private void Start()
     {
@@ -31,6 +32,8 @@ public class Board : MonoBehaviour
 
     private void ProduceBallsOnTrack()
     {
+        if (isReverse) return;
+
         BallSlot zeroSlot = BallSlotsByDistance[0];
         if (!zeroSlot.ball)
         {
@@ -114,6 +117,11 @@ public class Board : MonoBehaviour
             }
 
             AddBalsIfThereIsBomb(ballsToDestroySlots);
+            if (ballsToDestroySlots.FindIndex(bs => bs.ball.type == BallType.Reverse) != -1)
+            {
+                StartCoroutine(StartReverseCo());
+            }
+
 
             foreach (BallSlot ballsToDestroySlot in ballsToDestroySlots)
             {
@@ -132,6 +140,29 @@ public class Board : MonoBehaviour
         .All(bs => !bs.ball || bs.ball.state != BallState.SwitchingSlots));
 
         isDestroyingMatchingBalls = false;
+    }
+
+    private IEnumerator StartReverseCo()
+    {
+        yield return new WaitUntil(() => BallSlotsByDistance.All(bs => isDestroyingMatchingBalls == false && (!bs.ball 
+        || bs.ball.state != BallState.Landing
+        && bs.ball.state != BallState.SwitchingSlots)));
+
+        isReverse = true;
+
+        foreach (BallSlot ballSlot in ballSlots)
+        {
+            ballSlot.direction = -1;
+        }
+
+        yield return new WaitForSeconds(GameProperties.reverseDuration);
+
+        foreach (BallSlot ballSlot in ballSlots)
+        {
+            ballSlot.direction = 1;
+        }
+
+        isReverse = false;
     }
 
     private void AddBalsIfThereIsBomb(List<BallSlot> ballsToDestroySlots)
