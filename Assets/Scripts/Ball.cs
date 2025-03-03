@@ -35,11 +35,21 @@ public class Ball : MonoBehaviour
 
         switch (state)
         {
-            case BallState.Spawning:
+            case BallState.SpawningOnTrack:
                 upscaleCounter += GameProperties.ballUpscaleSpeed * Time.deltaTime;
                 if (upscaleCounter >= 1)
                 {
                     state = BallState.InSlot;
+                    return;
+                }
+
+                transform.localScale = Vector3.one * upscaleCounter;
+                break;
+            case BallState.SpawningToShoot:
+                upscaleCounter += GameProperties.ballUpscaleSpeed * Time.deltaTime;
+                if (upscaleCounter >= 1)
+                {
+                    state = BallState.ReadyToShoot;
                     return;
                 }
 
@@ -61,7 +71,7 @@ public class Ball : MonoBehaviour
                 transform.position += shootDirection * (GameProperties.ballShootingSpeed * Time.deltaTime);
                 break;
             case BallState.Landing:
-                transform.position = 
+                transform.position =
                     Vector3.MoveTowards(transform.position, slot.transform.position, GameProperties.ballLandingSpeed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, slot.transform.position) < .1f)
@@ -73,7 +83,7 @@ public class Ball : MonoBehaviour
                 break;
             case BallState.SwitchingSlots:
                 int direction = distanceTraveled > slot.GetDistanceTraveled() ? -1 : 1;
-                distanceTraveled += direction * GameProperties.ballSlotSwitchingSpeed * Time.deltaTime; 
+                distanceTraveled += direction * GameProperties.ballSlotSwitchingSpeed * Time.deltaTime;
 
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
 
@@ -82,6 +92,8 @@ public class Ball : MonoBehaviour
                     state = BallState.InSlot;
                     PlaceInSlotTransform();
                 }
+                break;
+            case BallState.ReadyToShoot:
                 break;
         }
     }

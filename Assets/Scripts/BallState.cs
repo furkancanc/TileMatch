@@ -1,8 +1,10 @@
 public enum BallState
 {
-    Spawning,
+    SpawningOnTrack,
+    SpawningToShoot,
     InSlot,
     Destroying,
+    ReadyToShoot,
     Shooting,
     Landing,
     SwitchingSlots

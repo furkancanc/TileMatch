@@ -4,31 +4,46 @@ public class Shooter : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] private BallFactory ballFactory;
-    [SerializeField] private Board board;
     [SerializeField] private Transform shootPoint;
 
     [Header("Data")]
     private Camera mainCamera;
     public Ball nextShootBall;
+
+    [SerializeField] private Sprite activeSprite;
+    [SerializeField] private Sprite inactiveSprite;
+
+    private SpriteRenderer spriteRenderer;
+
+    public bool isShooterDisabledFromOutside;
+
     private void Start()
     {
         mainCamera = Camera.main;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         FaceMouse();
+        UpdateSprite();
 
         if (!nextShootBall)
         {
             nextShootBall = ballFactory.CreateRandomBallAt(shootPoint.position);
+            nextShootBall.state = BallState.SpawningToShoot;
             nextShootBall.transform.parent = shootPoint;
         }
 
-        if (Input.GetMouseButtonDown(0) && !board.isDestroyingMatchingBalls && !board.isReverse)
+        if (Input.GetMouseButtonDown(0) && !isShooterDisabledFromOutside)
         {
             ShootNextBall();
         }
+    }
+
+    public void UpdateSprite()
+    {
+        spriteRenderer.sprite = !isShooterDisabledFromOutside && IsNextBallReady ? activeSprite : inactiveSprite;
     }
 
     private void ShootNextBall()
@@ -58,4 +73,6 @@ public class Shooter : MonoBehaviour
 
         return mousePosition;
     }
+
+    private bool IsNextBallReady => nextShootBall && nextShootBall.state == BallState.ReadyToShoot;
 }

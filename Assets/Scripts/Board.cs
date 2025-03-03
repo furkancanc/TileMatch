@@ -12,7 +12,8 @@ public class Board : MonoBehaviour
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private Transform ballSlotContainer;
     [SerializeField] private Ball ballPrefab;
-    [SerializeField] private BallFactory ballFactory; 
+    [SerializeField] private BallFactory ballFactory;
+    [SerializeField] private Shooter shooter;
 
     private BallSlot[] ballSlots;
 
@@ -44,7 +45,7 @@ public class Board : MonoBehaviour
         zeroSlot.AssignBall(ball);
         ball.transform.parent = zeroSlot.transform;
         ball.transform.localScale = Vector3.zero;
-        ball.state = BallState.Spawning;
+        ball.state = BallState.SpawningOnTrack;
     }
 
     private void InitializeBallSlots()
@@ -102,6 +103,7 @@ public class Board : MonoBehaviour
     private IEnumerator DestroyMatchingBallsCo(BallSlot landedBallSlot)
     {
         isDestroyingMatchingBalls = true;
+        shooter.isShooterDisabledFromOutside = true;
 
         List<BallSlot> ballsToDestroySlots;
         BallSlot collidedBallSlot = landedBallSlot;
@@ -142,6 +144,7 @@ public class Board : MonoBehaviour
         .All(bs => !bs.ball || bs.ball.state != BallState.SwitchingSlots));
 
         isDestroyingMatchingBalls = false;
+        shooter.isShooterDisabledFromOutside = false;
     }
 
     private void DestroyAllBallsInList(List<BallSlot> ballsToDestroySlots)
@@ -184,6 +187,7 @@ public class Board : MonoBehaviour
         && bs.ball.state != BallState.SwitchingSlots)));
 
         isReverse = true;
+        shooter.isShooterDisabledFromOutside = true;
 
         foreach (BallSlot ballSlot in ballSlots)
         {
@@ -198,6 +202,7 @@ public class Board : MonoBehaviour
         }
 
         isReverse = false;
+        shooter.isShooterDisabledFromOutside = false;
     }
 
     private void AddBalsIfThereIsBomb(List<BallSlot> ballsToDestroySlots)
