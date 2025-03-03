@@ -514,6 +514,7 @@ MonoBehaviour:
   ballSlotContainer: {fileID: 1908087003}
   ballPrefab: {fileID: -9058541482251748375, guid: 0b3b874aa973a76479c76db6c348c9e2, type: 3}
   ballFactory: {fileID: 1724788582}
+  shooter: {fileID: 1834303170}
 --- !u!4 &1553866789
 Transform:
   m_ObjectHideFlags: 0
@@ -733,6 +734,12 @@ MonoBehaviour:
   bombSprite: {fileID: 21300000, guid: bcdd83a9e5744c543bfa0607061190a6, type: 3}
   reverseSprite: {fileID: 21300000, guid: b7fc0da2f5691714090786185aa02945, type: 3}
   timeSlowSprite: {fileID: 21300000, guid: f87096b81111d8b44b3594ca4c916ac7, type: 3}
+  activeRedSprite: {fileID: 21300000, guid: 7442e54dd099119498aea7fb2b39599a, type: 3}
+  activeGreenSprite: {fileID: 21300000, guid: 05b73b3aab710414da3c323cb797cb2e, type: 3}
+  activeBlueSprite: {fileID: 21300000, guid: b85fe64283c7b764493547ed9d6714e2, type: 3}
+  activeBombSprite: {fileID: 21300000, guid: b41fde8ddce860a41bf46043e591f1de, type: 3}
+  activeReverseSprite: {fileID: 21300000, guid: 79e6619012326084ba20215dc88459c5, type: 3}
+  activeTimeSlowSprite: {fileID: 21300000, guid: 4f897401014fa88488417780bb1666a9, type: 3}
 --- !u!4 &1724788583
 Transform:
   m_ObjectHideFlags: 0
@@ -779,9 +786,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballFactory: {fileID: 1724788582}
-  board: {fileID: 1553866788}
   shootPoint: {fileID: 1176683820}
   nextShootBall: {fileID: 0}
+  activeSprite: {fileID: 21300000, guid: aa94bdd23c7afdc43b0758afc49a6e0a, type: 3}
+  inactiveSprite: {fileID: 21300000, guid: 84743b2f68e722a44a5562789b9795f6, type: 3}
+  isShooterDisabledFromOutside: 0
 --- !u!212 &1834303171
 SpriteRenderer:
   m_ObjectHideFlags: 0
