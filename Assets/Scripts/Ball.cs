@@ -48,7 +48,8 @@ public class Ball : MonoBehaviour
             case BallState.InSlot:
                 break;
             case BallState.Destroying:
-                downscaleCounter -= GameProperties.ballDownslaceSpeed * Time.deltaTime;
+                float multiplier = downscaleCounter > .9f ? .3f : 1;
+                downscaleCounter -= multiplier * GameProperties.ballDownslaceSpeed * Time.deltaTime;
                 if (downscaleCounter < 0)
                 {
                     Destroy(gameObject);
@@ -66,6 +67,7 @@ public class Ball : MonoBehaviour
                 if (Vector3.Distance(transform.position, slot.transform.position) < .1f)
                 {
                     state = BallState.InSlot;
+                    transform.rotation = Quaternion.identity;
                     PlaceInSlotTransform();
                 }
                 break;
