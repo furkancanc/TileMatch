@@ -14,6 +14,7 @@ public class Board : MonoBehaviour
     [SerializeField] private Ball ballPrefab;
     [SerializeField] private BallFactory ballFactory;
     [SerializeField] private Shooter shooter;
+    [SerializeField] private AudioManager audioManager;
 
     private BallSlot[] ballSlots;
 
@@ -24,6 +25,7 @@ public class Board : MonoBehaviour
     private void Start()
     {
         InitializeBallSlots();
+        audioManager.PlayRandomMusic();
     }
 
     private void Update()
@@ -69,6 +71,8 @@ public class Board : MonoBehaviour
 
     public void LandBall(BallSlot collidedSlot, Ball landingBall)
     {
+        audioManager.PlaySfx(0);
+
         BallSlot[] ballSlotsByDistance = BallSlotsByDistance;
         int indexOfCollidedSlot = Array.IndexOf(ballSlotsByDistance, collidedSlot);
         int firstEmptySlotIndexAfter = FirstEmptySlotIndexAfter(indexOfCollidedSlot, ballSlotsByDistance);
@@ -155,6 +159,7 @@ public class Board : MonoBehaviour
             ballsToDestroySlot.ball.StartDestroying();
             ballsToDestroySlot.AssignBall(null);
         }
+        audioManager.PlaySfx(1);
     }
 
     private IEnumerator TimeSlowCo()
