@@ -129,12 +129,7 @@ public class Board : MonoBehaviour
                 StartCoroutine(TimeSlowCo());
             }
 
-
-            foreach (BallSlot ballsToDestroySlot in ballsToDestroySlots)
-            {
-                ballsToDestroySlot.ball.StartDestroying();
-                ballsToDestroySlot.AssignBall(null);
-            }
+            DestroyAllBallsInList(ballsToDestroySlots);
 
             collidedBallSlot = ballsToDestroySlots[0];
 
@@ -147,6 +142,16 @@ public class Board : MonoBehaviour
         .All(bs => !bs.ball || bs.ball.state != BallState.SwitchingSlots));
 
         isDestroyingMatchingBalls = false;
+    }
+
+    private void DestroyAllBallsInList(List<BallSlot> ballsToDestroySlots)
+    {
+        foreach (BallSlot ballsToDestroySlot in ballsToDestroySlots)
+        {
+            ballsToDestroySlot.ball.UpdateSprite(ballFactory.GetActiveSpriteByType(ballsToDestroySlot.ball.type));
+            ballsToDestroySlot.ball.StartDestroying();
+            ballsToDestroySlot.AssignBall(null);
+        }
     }
 
     private IEnumerator TimeSlowCo()

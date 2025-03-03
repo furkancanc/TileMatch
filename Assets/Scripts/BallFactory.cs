@@ -26,6 +26,13 @@ public class BallFactory : MonoBehaviour
     [SerializeField] private Sprite bombSprite;
     [SerializeField] private Sprite reverseSprite;
     [SerializeField] private Sprite timeSlowSprite;
+    
+    [SerializeField] private Sprite activeRedSprite;
+    [SerializeField] private Sprite activeGreenSprite;
+    [SerializeField] private Sprite activeBlueSprite;
+    [SerializeField] private Sprite activeBombSprite;
+    [SerializeField] private Sprite activeReverseSprite;
+    [SerializeField] private Sprite activeTimeSlowSprite;
 
 
     public Ball CreateBallAt(Vector3 point, BallType ballType)
@@ -77,6 +84,27 @@ public class BallFactory : MonoBehaviour
                 return reverseSprite;
             case BallType.TimeSlow:
                 return timeSlowSprite;
+            default:
+                return blueSprite;
+        }
+    }
+
+    public Sprite GetActiveSpriteByType(BallType type)
+    {
+        switch (type)
+        {
+            case BallType.Red:
+                return activeRedSprite;
+            case BallType.Green:
+                return activeGreenSprite;
+            case BallType.Blue:
+                return activeBlueSprite;
+            case BallType.Bomb:
+                return activeBombSprite;
+            case BallType.Reverse:
+                return activeReverseSprite;
+            case BallType.TimeSlow:
+                return activeTimeSlowSprite;
             default:
                 return blueSprite;
         }

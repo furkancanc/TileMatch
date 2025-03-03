@@ -13,18 +13,21 @@ public class Ball : MonoBehaviour
 
     private Board board;
 
-    private CircleCollider2D CircleCollider2D;
+    private CircleCollider2D circleCollider2D;
     private PathCreator pathCreator;
 
     private float distanceTraveled;
+
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         board = FindFirstObjectByType<Board>();
         pathCreator = FindFirstObjectByType<PathCreator>();
 
-        CircleCollider2D = GetComponent<CircleCollider2D>();
-        CircleCollider2D.enabled = false;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        circleCollider2D = GetComponent<CircleCollider2D>();
+        circleCollider2D.enabled = false;
     }
 
     private void Update()
@@ -91,7 +94,7 @@ public class Ball : MonoBehaviour
     {
         shootDirection = direction;
         state = BallState.Shooting;
-        CircleCollider2D.enabled = true;
+        circleCollider2D.enabled = true;
     }
 
     public void Land()
@@ -124,8 +127,12 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        Debug.Log("Boo!");
         board.LandBall(ballSlot, this);
-        CircleCollider2D.enabled = false;
+        circleCollider2D.enabled = false;
+    }
+
+    public void UpdateSprite(Sprite newSprite)
+    {
+        spriteRenderer.sprite = newSprite;
     }
 }
