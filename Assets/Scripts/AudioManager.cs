@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip menuMusic;
 
     [Header("Data")]
+    [SerializeField] private AudioSource musicSource;
     private AudioSource audioSource;
 
     private void Awake()
@@ -24,9 +25,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayRandomMusic()
     {
-        audioSource.Stop();
-        audioSource.clip = musicList[Random.Range(0, musicList.Length)];
-        audioSource.Play();
+        musicSource.Stop();
+        musicSource.clip = musicList[Random.Range(0, musicList.Length)];
+        musicSource.Play();
     }
 
     public void PlayMenuMusic()

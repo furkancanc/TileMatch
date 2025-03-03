@@ -27,7 +27,8 @@ public class Shooter : MonoBehaviour
     private void Update()
     {
         FaceMouse();
-        
+        UpdateSprite();
+
         if (!nextShootBall)
         {
             nextShootBall = ballFactory.CreateRandomBallAt(shootPoint.position);
@@ -39,13 +40,12 @@ public class Shooter : MonoBehaviour
         {
             audioManager.PlaySfx(2);
             ShootNextBall();
-            UpdateSprite();
         }
     }
 
     public void UpdateSprite()
     {
-        spriteRenderer.sprite = !isShooterDisabledFromOutside && IsNextBallReady ? activeSprite : inactiveSprite;
+        spriteRenderer.sprite = IsNextBallReady ? activeSprite : inactiveSprite;
     }
 
     private void ShootNextBall()
