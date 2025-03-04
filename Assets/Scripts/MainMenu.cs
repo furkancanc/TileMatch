@@ -1,16 +1,27 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private AudioManager audioManager;
+
+    private void Start()
     {
-        
+        audioManager.PlayMenuMusic();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ContinueGame()
     {
-        
+        SceneManager.LoadScene("Game");
+    }
+
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
