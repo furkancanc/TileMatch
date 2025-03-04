@@ -15,6 +15,7 @@ public class Board : MonoBehaviour
     [SerializeField] private BallFactory ballFactory;
     [SerializeField] private Shooter shooter;
     [SerializeField] private AudioManager audioManager;
+    [SerializeField] private GameUICanvas gameUICanvas;
 
     private BallSlot[] ballSlots;
 
@@ -30,6 +31,9 @@ public class Board : MonoBehaviour
         audioManager.PlayRandomMusic();
 
         Time.timeScale = 1;
+
+        gameUICanvas.UpdateLevelNumber(2);
+        gameUICanvas.UpdateLevelTime(40f);
     }
 
     private void Update()
