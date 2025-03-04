@@ -6,6 +6,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] private BallFactory ballFactory;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private AudioManager audioManager;
+    [SerializeField] private Board board;
 
     [Header("Data")]
     private Camera mainCamera;
@@ -26,8 +27,11 @@ public class Shooter : MonoBehaviour
 
     private void Update()
     {
-        FaceMouse();
-        UpdateSprite();
+        if (!board.isPaused)
+        {
+            FaceMouse();
+            UpdateSprite();
+        }
 
         if (!nextShootBall)
         {
@@ -36,7 +40,7 @@ public class Shooter : MonoBehaviour
             nextShootBall.transform.parent = shootPoint;
         }
 
-        if (Input.GetMouseButtonDown(0) && !isShooterDisabledFromOutside)
+        if (Input.GetMouseButtonUp(0) && !isShooterDisabledFromOutside && !board.isPaused)
         {
             audioManager.PlaySfx(2);
             ShootNextBall();

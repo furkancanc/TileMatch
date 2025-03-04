@@ -22,10 +22,14 @@ public class Board : MonoBehaviour
     public bool isDestroyingMatchingBalls { get; private set; }
     public bool isReverse { get; private set; }
 
+    public bool isPaused;
+
     private void Start()
     {
         InitializeBallSlots();
         audioManager.PlayRandomMusic();
+
+        Time.timeScale = 1;
     }
 
     private void Update()
