@@ -18,7 +18,7 @@ public class Board : MonoBehaviour
     [SerializeField] private GameUICanvas gameUICanvas;
 
     private BallSlot[] ballSlots;
-
+    private float levelTime;
     [Header("Settings")]
     public bool isDestroyingMatchingBalls { get; private set; }
     public bool isReverse { get; private set; }
@@ -33,11 +33,13 @@ public class Board : MonoBehaviour
         Time.timeScale = 1;
 
         gameUICanvas.UpdateLevelNumber(2);
-        gameUICanvas.UpdateLevelTime(40f);
+        gameUICanvas.UpdateLevelTime(levelTime);
     }
 
     private void Update()
     {
+        levelTime += Time.deltaTime;
+
         ProduceBallsOnTrack();
     }
 

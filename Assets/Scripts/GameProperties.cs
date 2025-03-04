@@ -13,4 +13,13 @@ public class GameProperties : MonoBehaviour
 
 
     public static int bombRadius = 1;
+
+    private static int lastLevel = 1;
+
+    public static int LastLevel => lastLevel;
+
+    public static void IncrementLastLevel()
+    {
+        ++lastLevel;
+    }
 }
