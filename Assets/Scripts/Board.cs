@@ -32,13 +32,21 @@ public class Board : MonoBehaviour
 
         Time.timeScale = 1;
 
-        gameUICanvas.UpdateLevelNumber(2);
+        gameUICanvas.UpdateLevelNumber(GameProperties.LastLevel);
         gameUICanvas.UpdateLevelTime(levelTime);
     }
 
     private void Update()
     {
         levelTime += Time.deltaTime;
+        gameUICanvas.UpdateLevelTime(levelTime);
+
+        if (levelTime >= GameProperties.levelDurationSeconds)
+        {
+            GameProperties.IncrementLastLevel();
+            gameUICanvas.UpdateLevelNumber(GameProperties.LastLevel);
+            levelTime = 0;
+        }
 
         ProduceBallsOnTrack();
     }
