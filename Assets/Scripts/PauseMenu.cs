@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject gameUIPanel;
     [SerializeField] private Board board;
     private void Start()
     {
@@ -13,6 +14,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void GoToMainMenu()
     {
+        Debug.Log("AAAA");
+        pausePanel.SetActive(false);
         mainMenuPanel.SetActive(true);
     }
 
@@ -20,7 +23,9 @@ public class PauseMenu : MonoBehaviour
     {
         board.isPaused = true;
         Time.timeScale = 0;
+        gameUIPanel.SetActive(false);
         pausePanel.SetActive(true);
+
     }
 
     public void UnPause()
@@ -34,5 +39,6 @@ public class PauseMenu : MonoBehaviour
         board.isPaused = false;
         Time.timeScale = 1;
         pausePanel.SetActive(false);
+        gameUIPanel.SetActive(true);
     }
 }
