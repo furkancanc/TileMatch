@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private AudioManager audioManager;
+    [SerializeField] private GameObject confirmationPanel;
 
     private void Start()
     {
@@ -17,11 +18,21 @@ public class MainMenu : MonoBehaviour
 
     public void StartNewGame()
     {
-        SceneManager.LoadScene("Game");
+        confirmationPanel.SetActive(true);
     }
 
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void ConfirmNewGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void CancelNewGame()
+    {
+        confirmationPanel.SetActive(false);
     }
 }
