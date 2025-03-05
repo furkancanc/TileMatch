@@ -5,10 +5,12 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private GameObject confirmationPanel;
+    [SerializeField] private GameObject mainMenuPanel;
 
     private void Start()
     {
         audioManager.PlayMenuMusic();
+        confirmationPanel.SetActive(false);
     }
 
     public void ContinueGame()
@@ -19,6 +21,7 @@ public class MainMenu : MonoBehaviour
     public void StartNewGame()
     {
         confirmationPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
     }
 
     public void ExitGame()
@@ -34,5 +37,6 @@ public class MainMenu : MonoBehaviour
     public void CancelNewGame()
     {
         confirmationPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
     }
 }

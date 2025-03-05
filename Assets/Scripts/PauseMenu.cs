@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private Board board;
     private void Start()
     {
@@ -12,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        mainMenuPanel.SetActive(true);
     }
 
     public void Pause()
