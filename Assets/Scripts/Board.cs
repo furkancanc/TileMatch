@@ -19,6 +19,9 @@ public class Board : MonoBehaviour
 
     private BallSlot[] ballSlots;
     private float levelTime;
+
+    private bool isGameOver;
+
     [Header("Settings")]
     public bool isDestroyingMatchingBalls { get; private set; }
     public bool isReverse { get; private set; }
@@ -336,6 +339,19 @@ public class Board : MonoBehaviour
         }
 
         return -1;
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(GameOverCo());
+    }
+
+    private IEnumerator GameOverCo()
+    {
+        shooter.isShooterDisabledFromOutside = true;
+        isGameOver = true;
+        yield return new WaitForSeconds(2);
+        gameUICanvas.ShowGameOver();
     }
 
     private BallSlot[] BallSlotsByDistance => ballSlots.OrderBy(bs => bs.GetDistanceTraveled()).ToArray();

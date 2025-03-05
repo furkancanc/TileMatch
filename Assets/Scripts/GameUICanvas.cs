@@ -5,6 +5,12 @@ public class GameUICanvas : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI levelTime;
     [SerializeField] private TextMeshProUGUI levelNumber;
+    [SerializeField] private GameObject gameOverPanel;
+
+    private void Start()
+    {
+        gameOverPanel.SetActive(false);
+    }
 
     public void UpdateLevelTime(float time)
     {
@@ -16,5 +22,10 @@ public class GameUICanvas : MonoBehaviour
     public void UpdateLevelNumber(int level)
     {
         levelNumber.text = "Level " + level;
+    }
+
+    public void ShowGameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 }
