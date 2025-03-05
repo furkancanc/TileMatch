@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BallDestroyer : MonoBehaviour
 {
+    [SerializeField] private Board board;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.GetComponent<BallSlot>())
@@ -18,5 +20,10 @@ public class BallDestroyer : MonoBehaviour
 
         ballSlot.ball.state = BallState.Destroying;
         ballSlot.ball = null;
+
+        if (!board.isGameOver)
+        {
+            board.GameOver();
+        }
     }
 }

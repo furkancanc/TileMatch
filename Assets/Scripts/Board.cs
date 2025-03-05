@@ -20,7 +20,7 @@ public class Board : MonoBehaviour
     private BallSlot[] ballSlots;
     private float levelTime;
 
-    private bool isGameOver;
+    public bool isGameOver;
 
     [Header("Settings")]
     public bool isDestroyingMatchingBalls { get; private set; }
@@ -41,14 +41,17 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        levelTime += Time.deltaTime;
-        gameUICanvas.UpdateLevelTime(levelTime);
-
-        if (levelTime >= GameProperties.levelDurationSeconds)
+        if (!isGameOver)
         {
-            GameProperties.IncrementLastLevel();
-            gameUICanvas.UpdateLevelNumber(GameProperties.LastLevel);
-            levelTime = 0;
+            levelTime += Time.deltaTime;
+            gameUICanvas.UpdateLevelTime(levelTime);
+
+            if (levelTime >= GameProperties.levelDurationSeconds)
+            {
+                GameProperties.IncrementLastLevel();
+                gameUICanvas.UpdateLevelNumber(GameProperties.LastLevel);
+                levelTime = 0;
+            }
         }
 
         ProduceBallsOnTrack();
@@ -194,44 +197,39 @@ public class Board : MonoBehaviour
             || bs.ball.state != BallState.Landing
             && bs.ball.state != BallState.SwitchingSlots)));
 
-        foreach (BallSlot ballSlot in ballSlots)
-        {
-            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(.5f);
-        }
+        SpeedUpSlots(.5f);
 
         yield return new WaitForSeconds(GameProperties.timeSlowDuration);
 
-        foreach (BallSlot ballSlot in ballSlots)
-        {
-            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(1f);
-        }
-
+        SpeedUpSlots(1f);
     }
 
 
     private IEnumerator StartReverseCo()
     {
-        yield return new WaitUntil(() => BallSlotsByDistance.All(bs => isDestroyingMatchingBalls == false && (!bs.ball 
+        yield return new WaitUntil(() => BallSlotsByDistance.All(bs => isDestroyingMatchingBalls == false && (!bs.ball
         || bs.ball.state != BallState.Landing
         && bs.ball.state != BallState.SwitchingSlots)));
 
         isReverse = true;
         shooter.isShooterDisabledFromOutside = true;
 
-        foreach (BallSlot ballSlot in ballSlots)
-        {
-            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(-1f);
-        }
+        SpeedUpSlots(-1f);
 
         yield return new WaitForSeconds(GameProperties.reverseDuration);
 
-        foreach (BallSlot ballSlot in ballSlots)
-        {
-            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(1f);
-        }
+        SpeedUpSlots(1f);
 
         isReverse = false;
         shooter.isShooterDisabledFromOutside = false;
+    }
+
+    private void SpeedUpSlots(float effectMultiplier)
+    {
+        foreach (BallSlot ballSlot in ballSlots)
+        {
+            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(effectMultiplier);
+        }
     }
 
     private void AddBalsIfThereIsBomb(List<BallSlot> ballsToDestroySlots)
@@ -350,6 +348,7 @@ public class Board : MonoBehaviour
     {
         shooter.isShooterDisabledFromOutside = true;
         isGameOver = true;
+        SpeedUpSlots(1.5f);
         yield return new WaitForSeconds(2);
         gameUICanvas.ShowGameOver();
     }
