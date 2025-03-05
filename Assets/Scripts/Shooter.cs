@@ -42,7 +42,6 @@ public class Shooter : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && !isShooterDisabledFromOutside && !board.isPaused)
         {
-            audioManager.PlaySfx(2);
             ShootNextBall();
         }
     }
@@ -56,6 +55,8 @@ public class Shooter : MonoBehaviour
     {
         if (!nextShootBall || nextShootBall.state != BallState.ReadyToShoot)
             return;
+
+        audioManager.PlaySfx(2);
 
         Vector3 shootDirection = (GetMousePosition() - transform.position).normalized;
         nextShootBall.Shoot(shootDirection);
