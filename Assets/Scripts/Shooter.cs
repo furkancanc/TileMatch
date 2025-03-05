@@ -54,6 +54,9 @@ public class Shooter : MonoBehaviour
 
     private void ShootNextBall()
     {
+        if (!nextShootBall || nextShootBall.state != BallState.ReadyToShoot)
+            return;
+
         Vector3 shootDirection = (GetMousePosition() - transform.position).normalized;
         nextShootBall.Shoot(shootDirection);
         nextShootBall.transform.parent = null;
