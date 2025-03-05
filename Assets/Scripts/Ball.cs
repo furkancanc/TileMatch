@@ -62,7 +62,7 @@ public class Ball : MonoBehaviour
                 downscaleCounter -= multiplier * GameProperties.GetSlowSpeedMultiplier(1f) 
                     * GameProperties.ballDownslaceSpeed * Time.deltaTime;
 
-                if (downscaleCounter < 0)
+                if (downscaleCounter < 0 || board.isReverse && IsNearPathStart())
                 {
                     Destroy(gameObject);
                     return;
@@ -100,6 +100,10 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private bool IsNearPathStart()
+    {
+        return pathCreator.path.GetClosestDistanceAlongPath(transform.position) < .2f;
+    }
     private void PlaceInSlotTransform()
     {
         transform.position = slot.transform.position;
