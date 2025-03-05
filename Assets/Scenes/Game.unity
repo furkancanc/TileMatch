@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 332061503}
   - component: {fileID: 332061505}
   - component: {fileID: 332061504}
+  - component: {fileID: 332061506}
   m_Layer: 5
   m_Name: Game UI Panel
   m_TagString: Untagged
@@ -552,6 +553,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332061502}
   m_CullTransparentMesh: 1
+--- !u!114 &332061506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332061502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32469d2aea277254a8c9c0f764f124a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTime: {fileID: 669847139}
+  levelNumber: {fileID: 792500273}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,6 +1808,7 @@ MonoBehaviour:
   ballFactory: {fileID: 1724788582}
   shooter: {fileID: 1834303170}
   audioManager: {fileID: 2090348057}
+  gameUICanvas: {fileID: 332061506}
   isPaused: 0
 --- !u!4 &1553866789
 Transform:

@@ -83,6 +83,8 @@ public class Board : MonoBehaviour
             Vector3 slotPosition = pathCreator.path.GetPointAtDistance(i);
             BallSlot ballSlot = Instantiate(ballSlotPrefab, slotPosition, Quaternion.identity, ballSlotContainer);
             ballSlot.SetDistanceTraveled(distanceTraveled);
+            ballSlot.transform.parent = ballSlotContainer.transform;
+            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(1f);
             ballSlots[i] = ballSlot;
         }
     }
@@ -191,17 +193,18 @@ public class Board : MonoBehaviour
 
         foreach (BallSlot ballSlot in ballSlots)
         {
-            ballSlot.speedMultiplier = .5f;
+            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(.5f);
         }
 
         yield return new WaitForSeconds(GameProperties.timeSlowDuration);
 
         foreach (BallSlot ballSlot in ballSlots)
         {
-            ballSlot.speedMultiplier = 1;
+            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(1f);
         }
 
     }
+
 
     private IEnumerator StartReverseCo()
     {
@@ -214,14 +217,14 @@ public class Board : MonoBehaviour
 
         foreach (BallSlot ballSlot in ballSlots)
         {
-            ballSlot.speedMultiplier = -1;
+            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(-1f);
         }
 
         yield return new WaitForSeconds(GameProperties.reverseDuration);
 
         foreach (BallSlot ballSlot in ballSlots)
         {
-            ballSlot.speedMultiplier = 1;
+            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(1f);
         }
 
         isReverse = false;

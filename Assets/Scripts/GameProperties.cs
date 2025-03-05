@@ -18,6 +18,8 @@ public class GameProperties : MonoBehaviour
     public static float reverseDuration = 2f;
     public static float timeSlowDuration = 2f;
     public static float levelDurationSeconds = 10f;
+    public static float slotSpeedUpPerLevel = .1f;
+
 
     public static int bombRadius = 1;
 
@@ -29,6 +31,10 @@ public class GameProperties : MonoBehaviour
     {
         ++lastLevel;
         PlayerPrefs.SetInt(KeyLastLevel, lastLevel);
+    }
+    public static float GetSlowSpeedMultiplier(float effectMultiplier)
+    {
+        return effectMultiplier * (1 + lastLevel * slotSpeedUpPerLevel);
     }
 
 }
