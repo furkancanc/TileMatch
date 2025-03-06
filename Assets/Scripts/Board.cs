@@ -234,24 +234,27 @@ public class Board : MonoBehaviour
 
     private void AddBalsIfThereIsBomb(List<BallSlot> ballsToDestroySlots)
     {
-        BallSlot ballSlot = ballsToDestroySlots.FirstOrDefault(bs => bs.ball.type == BallType.Bomb);
-        if (ballSlot)
+        List<BallSlot> ballSlots = ballsToDestroySlots.Where(bs => bs.ball.type == BallType.Bomb).ToList();
+        foreach (BallSlot bombSlot in ballSlots)
         {
-            int indexOfBombSlot = Array.IndexOf(BallSlotsByDistance, ballSlot);
-            for (int i = 1; i <= GameProperties.bombRadius; ++i)
+            if (bombSlot)
             {
-                int leftIndex = indexOfBombSlot - i;
-                int rightIndex = indexOfBombSlot + i;
-                if (leftIndex >= 0 && BallSlotsByDistance[leftIndex].ball &&
-                    !ballsToDestroySlots.Contains(BallSlotsByDistance[leftIndex]))
+                int indexOfBombSlot = Array.IndexOf(BallSlotsByDistance, bombSlot);
+                for (int i = 1; i <= GameProperties.bombRadius; ++i)
                 {
-                    ballsToDestroySlots.Add(BallSlotsByDistance[leftIndex]);
-                }
+                    int leftIndex = indexOfBombSlot - i;
+                    int rightIndex = indexOfBombSlot + i;
+                    if (leftIndex >= 0 && BallSlotsByDistance[leftIndex].ball &&
+                        !ballsToDestroySlots.Contains(BallSlotsByDistance[leftIndex]))
+                    {
+                        ballsToDestroySlots.Add(BallSlotsByDistance[leftIndex]);
+                    }
 
-                if (rightIndex < BallSlotsByDistance.Length && BallSlotsByDistance[rightIndex].ball &&
-                    !ballsToDestroySlots.Contains(BallSlotsByDistance[rightIndex]))
-                {
-                    ballsToDestroySlots.Add(BallSlotsByDistance[rightIndex]);
+                    if (rightIndex < BallSlotsByDistance.Length && BallSlotsByDistance[rightIndex].ball &&
+                        !ballsToDestroySlots.Contains(BallSlotsByDistance[rightIndex]))
+                    {
+                        ballsToDestroySlots.Add(BallSlotsByDistance[rightIndex]);
+                    }
                 }
             }
         }

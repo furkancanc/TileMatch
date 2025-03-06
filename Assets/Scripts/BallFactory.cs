@@ -73,7 +73,7 @@ public class BallFactory : MonoBehaviour
             return spawningStack.Pop();
         }
 
-        return Random.Range(0f, 1f) > 0.2f ? GetRandomBallColor() : GetRandomBallSpecialType();
+        return Random.Range(0f, 1f) > 0.2f ? GetRandomBallColor() : BallType.Bomb;
     }
 
     private Sprite GetSpriteByType(BallType type)
