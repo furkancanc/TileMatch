@@ -51,6 +51,7 @@ public class Board : MonoBehaviour
                 GameProperties.IncrementLastLevel();
                 gameUICanvas.UpdateLevelNumber(GameProperties.LastLevel);
                 levelTime = 0;
+                DestroyAllBallsInList(BallSlotsByDistance.Where(bs => bs.ball).ToList());
             }
         }
 
