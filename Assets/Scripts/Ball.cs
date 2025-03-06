@@ -44,6 +44,7 @@ public class Ball : MonoBehaviour
                 }
 
                 transform.localScale = Vector3.one * upscaleCounter;
+                transform.up = slot.transform.up;
                 break;
             case BallState.SpawningToShoot:
                 upscaleCounter += GameProperties.ballUpscaleSpeed * Time.deltaTime;
@@ -56,6 +57,7 @@ public class Ball : MonoBehaviour
                 transform.localScale = Vector3.one * upscaleCounter;
                 break;
             case BallState.InSlot:
+                transform.up = slot.transform.up;
                 break;
             case BallState.Destroying:
                 float multiplier = downscaleCounter > .9f ? .3f : 1;

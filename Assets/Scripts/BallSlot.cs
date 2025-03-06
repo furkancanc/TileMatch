@@ -44,7 +44,17 @@ public class BallSlot : MonoBehaviour
             TrimDistanceTraveled();
 
             transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
+
+            LookOppositePathDirection();
         }
+    }
+
+    private void LookOppositePathDirection()
+    {
+        Vector3 bPos = pathCreator.path.GetPointAtDistance(distanceTraveled);
+        Vector3 aPos = pathCreator.path.GetPointAtDistance(distanceTraveled - .1f);
+        Vector3 lookDirection = aPos - bPos;
+        transform.up = new Vector2(lookDirection.x, lookDirection.y);
     }
 
     private void TrimDistanceTraveled()
