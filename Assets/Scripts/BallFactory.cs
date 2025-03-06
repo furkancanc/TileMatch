@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BallFactory : MonoBehaviour
@@ -18,6 +19,8 @@ public class BallFactory : MonoBehaviour
         BallType.Reverse,
         BallType.TimeSlow
     };
+
+    private readonly Stack<BallType> spawningStack = new Stack<BallType>();
 
     [Header("Data")]
     [SerializeField] private Sprite redSprite;
@@ -65,6 +68,11 @@ public class BallFactory : MonoBehaviour
 
     public BallType GetRandomBallType()
     {
+        if (spawningStack.Count > 0)
+        {
+            return spawningStack.Pop();
+        }
+
         return Random.Range(0f, 1f) > 0.2f ? GetRandomBallColor() : GetRandomBallSpecialType();
     }
 
@@ -108,5 +116,10 @@ public class BallFactory : MonoBehaviour
             default:
                 return blueSprite;
         }
+    }
+
+    public void AddTypeToStack(BallType type)
+    {
+        spawningStack.Push(type);
     }
 }

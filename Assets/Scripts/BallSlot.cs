@@ -5,6 +5,7 @@ public class BallSlot : MonoBehaviour
 {
     [Header("Elements")]
     private PathCreator pathCreator;
+    private BallFactory ballFactory;
 
     [Header("Data")]
     private float distanceTraveled;
@@ -14,6 +15,7 @@ public class BallSlot : MonoBehaviour
     private void Start()
     {
         pathCreator = Object.FindFirstObjectByType<PathCreator>();
+        ballFactory = Object.FindFirstObjectByType<BallFactory>();
     }
 
     public void SetDistanceTraveled(float distanceTraveled)
@@ -30,34 +32,46 @@ public class BallSlot : MonoBehaviour
     {
         if (pathCreator)
         {
-            distanceTraveled += speedMultiplier *  GameProperties.ballSlotsSpeed * Time.deltaTime;
+            distanceTraveled += speedMultiplier * GameProperties.ballSlotsSpeed * Time.deltaTime;
 
-            if (distanceTraveled > pathCreator.path.length)
-            {
-                distanceTraveled = 0;
-            }
 
             if (speedMultiplier < 0 && distanceTraveled < 1f && ball)
             {
-                if (distanceTraveled < .5f)
-                {
-                    Destroy(ball.gameObject);
-                }
-                else
-                {
-                    ball.StartDestroying();
-                }
-
-                AssignBall(null);
+                ballFactory.AddTypeToStack(ball.type);
+                DestroyBall(distanceTraveled < 0.5);
             }
 
-            if (distanceTraveled < 0)
-            {
-                distanceTraveled = pathCreator.path.length;
-            }
+            TrimDistanceTraveled();
 
             transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
         }
+    }
+
+    private void TrimDistanceTraveled()
+    {
+        if (distanceTraveled > pathCreator.path.length)
+        {
+            distanceTraveled = 0;
+        }
+
+        else if (distanceTraveled < 0)
+        {
+            distanceTraveled = pathCreator.path.length;
+        }
+    }
+
+    private void DestroyBall(bool immediately)
+    {
+        if (immediately)
+        {
+            Destroy(ball.gameObject);
+        }
+        else
+        {
+            ball.StartDestroying();
+        }
+
+        AssignBall(null);
     }
 
     public void AssignBall(Ball newBall)
