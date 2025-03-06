@@ -90,7 +90,7 @@ public class Board : MonoBehaviour
             BallSlot ballSlot = Instantiate(ballSlotPrefab, slotPosition, Quaternion.identity, ballSlotContainer);
             ballSlot.SetDistanceTraveled(distanceTraveled);
             ballSlot.transform.parent = ballSlotContainer.transform;
-            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(1f);
+            ballSlot.speedMultiplier = GameProperties.GetSlotSpeedMultiplier(1f);
             ballSlots[i] = ballSlot;
         }
     }
@@ -228,7 +228,7 @@ public class Board : MonoBehaviour
     {
         foreach (BallSlot ballSlot in ballSlots)
         {
-            ballSlot.speedMultiplier = GameProperties.GetSlowSpeedMultiplier(effectMultiplier);
+            ballSlot.speedMultiplier = GameProperties.GetSlotSpeedMultiplier(effectMultiplier);
         }
     }
 

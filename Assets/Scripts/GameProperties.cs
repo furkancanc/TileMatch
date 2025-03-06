@@ -32,7 +32,7 @@ public class GameProperties : MonoBehaviour
         ++lastLevel;
         PlayerPrefs.SetInt(KeyLastLevel, lastLevel);
     }
-    public static float GetSlowSpeedMultiplier(float effectMultiplier)
+    public static float GetSlotSpeedMultiplier(float effectMultiplier)
     {
         return effectMultiplier * (1 + lastLevel * slotSpeedUpPerLevel);
     }
