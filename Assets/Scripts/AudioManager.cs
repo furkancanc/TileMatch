@@ -3,18 +3,14 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [Header("Elements")]
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource audioSource;
+
+    [Header("Data")]
     [SerializeField] private AudioClip[] sfxList;
     [SerializeField] private AudioClip[] musicList;
     [SerializeField] private AudioClip menuMusic;
 
-    [Header("Data")]
-    [SerializeField] private AudioSource musicSource;
-    private AudioSource audioSource;
-
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
     public void PlaySfx(int index)
     {
         audioSource.Stop();
@@ -32,8 +28,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMenuMusic()
     {
-        audioSource.Stop();
-        audioSource.clip = menuMusic;
-        audioSource.Play();
+        musicSource.Stop();
+        musicSource.clip = menuMusic;
+        musicSource.Play();
     }
 }
