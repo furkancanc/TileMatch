@@ -1,4 +1,5 @@
 using PathCreation;
+using System;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -9,17 +10,20 @@ public class Ball : MonoBehaviour
     public BallType type;
     private Vector3 shootDirection;
 
-    public BallSlot slot;
-
+    [Header("Elements")]
     private Board board;
-
-    private CircleCollider2D circleCollider2D;
     private PathCreator pathCreator;
+    public BallSlot slot;
 
     private float distanceTraveled;
 
+    [Header("Data")]
+    private CircleCollider2D circleCollider2D;
     private SpriteRenderer spriteRenderer;
 
+
+    [Header("Actions")]
+    public static Action<BallSlot, Ball> onBallCollided;
     private void Start()
     {
         board = FindFirstObjectByType<Board>();
@@ -137,19 +141,13 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.GetComponent<BallSlot>())
-        {
-            return;
-        }
-
         BallSlot ballSlot = collision.GetComponent<BallSlot>();
-
-        if (!ballSlot.ball || state != BallState.Shooting)
+        if (!ballSlot || !ballSlot.ball || state != BallState.Shooting)
         {
             return;
         }
 
-        board.LandBall(ballSlot, this);
+        onBallCollided?.Invoke(ballSlot, this);
         circleCollider2D.enabled = false;
     }
 

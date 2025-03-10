@@ -28,6 +28,15 @@ public class Board : MonoBehaviour
 
     public bool isPaused;
 
+    private void Awake()
+    {
+        Ball.onBallCollided += LandBall;
+    }
+
+    private void OnDestroy()
+    {
+        Ball.onBallCollided -= LandBall;
+    }
     private void Start()
     {
         InitializeBallSlots();
