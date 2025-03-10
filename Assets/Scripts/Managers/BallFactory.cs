@@ -19,7 +19,6 @@ public class BallFactory : MonoBehaviour
         BallType.Reverse,
         BallType.TimeSlow
     };
-
     private readonly Stack<BallType> spawningStack = new Stack<BallType>();
 
     [Header("Data")]

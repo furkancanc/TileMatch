@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 0ffe6ce9d73f6a240aeb409f5b04915e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ballPrefab: {instanceID: 0}
+  - redSprite: {instanceID: 0}
+  - greenSprite: {instanceID: 0}
+  - blueSprite: {instanceID: 0}
+  - bombSprite: {instanceID: 0}
+  - reverseSprite: {instanceID: 0}
+  - timeSlowSprite: {instanceID: 0}
+  - activeRedSprite: {instanceID: 0}
+  - activeGreenSprite: {instanceID: 0}
+  - activeBlueSprite: {instanceID: 0}
+  - activeBombSprite: {instanceID: 0}
+  - activeReverseSprite: {instanceID: 0}
+  - activeTimeSlowSprite: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -3,13 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Elements")]
     [SerializeField] private AudioManager audioManager;
+    [Header("Data")]
     [SerializeField] private GameObject confirmationPanel;
     [SerializeField] private GameObject mainMenuPanel;
 
     private void Start()
     {
         audioManager.PlayMenuMusic();
+
+        mainMenuPanel.SetActive(true);
         confirmationPanel.SetActive(false);
     }
 
