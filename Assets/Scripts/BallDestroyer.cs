@@ -2,18 +2,13 @@ using UnityEngine;
 
 public class BallDestroyer : MonoBehaviour
 {
+    [Header("Elements")]
     [SerializeField] private Board board;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.GetComponent<BallSlot>())
-        {
-            return;
-        }
-
         BallSlot ballSlot = other.GetComponent<BallSlot>();
-
-        if (!ballSlot.ball)
+        if (!ballSlot || !ballSlot.ball)
         {
             return;
         }

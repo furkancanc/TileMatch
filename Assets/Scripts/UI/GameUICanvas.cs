@@ -4,10 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class GameUICanvas : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI levelTime;
-    [SerializeField] private TextMeshProUGUI levelNumber;
+    [Header("Data")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject gameUIPanel;
+    [SerializeField] private TextMeshProUGUI levelTime;
+    [SerializeField] private TextMeshProUGUI levelNumber;
 
     private void Start()
     {
