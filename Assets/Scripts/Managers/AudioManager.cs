@@ -11,6 +11,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip[] musicList;
     [SerializeField] private AudioClip menuMusic;
 
+    private void Start()
+    {
+        PlayRandomMusic();
+    }
     public void PlaySfx(int index)
     {
         audioSource.Stop();

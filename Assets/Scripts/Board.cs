@@ -40,12 +40,8 @@ public class Board : MonoBehaviour
     private void Start()
     {
         InitializeBallSlots();
-        audioManager.PlayRandomMusic();
-
         Time.timeScale = 1;
 
-        gameUICanvas.UpdateLevelNumber(GameProperties.LastLevel);
-        gameUICanvas.UpdateLevelTime(levelTime);
     }
 
     private void Update()
